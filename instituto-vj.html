@@ -157,11 +157,9 @@ nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 1px 0 var(--rule)}
 .srv-track{display:flex;gap:20px;transition:transform .62s cubic-bezier(.25,.46,.45,.94);will-change:transform}
 .srv-slide{min-width:calc(33.333% - 14px);flex-shrink:0}
 @media(max-width:900px){.srv-slide{min-width:calc(50% - 10px)}}
-.srv-slide{flex-shrink:0;min-width:0}
-.srv-slide .card{width:max-content;min-width:180px;overflow:hidden}
+.srv-slide{flex-shrink:0;min-width:180px}
+.srv-slide .card{width:100%;overflow:hidden}
 .srv-slide .card-img{height:360px;overflow:hidden}
-.srv-slide .card-img img{display:block;height:360px;width:auto;max-width:none;object-fit:unset}
-.srv-slide .card-body{width:0;min-width:100%;box-sizing:border-box}
 @media(max-width:580px){.srv-slide{min-width:100%}}
 
 /* DEPOIMENTOS */
@@ -1601,6 +1599,30 @@ function toggleGallery(el){
   go(0); start();
 })();
 
+
+// SIZE srv-slide cards to image natural aspect ratio
+(function(){
+  function fixSrvCards(){
+    document.querySelectorAll('#srvTrack .srv-slide').forEach(function(slide){
+      var img     = slide.querySelector('.card-img img');
+      var cardImg = slide.querySelector('.card-img');
+      if(!img || !cardImg) return;
+      function apply(){
+        if(!img.naturalWidth || !img.naturalHeight) return;
+        var w = Math.round(360 * img.naturalWidth / img.naturalHeight);
+        w = Math.max(w, 180);
+        slide.style.width   = w + 'px';
+        cardImg.style.width = w + 'px';
+      }
+      if(img.complete && img.naturalWidth) apply();
+      else img.addEventListener('load', apply);
+    });
+  }
+  if(document.readyState === 'loading')
+    document.addEventListener('DOMContentLoaded', fixSrvCards);
+  else
+    fixSrvCards();
+})();
 </script>
 </body>
 </html>
