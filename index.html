@@ -42,7 +42,7 @@ nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 1px 0 var(--rule)}
 .logo-wrap{display:flex;align-items:center;gap:10px;cursor:pointer}
 .logo-icon{width:36px;height:36px;border-radius:8px;background:var(--teal);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:16px;color:#fff;font-weight:600;letter-spacing:.1em}
 .logo-text{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--ink);letter-spacing:.02em}
-.logo-img{height:44px;width:auto;display:block}
+.logo-img{height:58px;width:auto;display:block}
 .mob-head-logo .logo-img{height:34px;filter:invert(1)}
 .footer-brand .logo-img{filter:invert(1)}
 .nav-links{display:flex;align-items:center;gap:4px}
@@ -1463,7 +1463,7 @@ function toggleGallery(el){
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = 'rgba(255,255,255,' + alpha + ')';
+            ctx.strokeStyle = 'rgba(196,151,90,' + alpha + ')';
             ctx.lineWidth = .6;
             ctx.stroke();
           }
@@ -1473,7 +1473,7 @@ function toggleGallery(el){
         var p = particles[i];
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-        ctx.fillStyle = 'rgba(255,255,255,.65)';
+        ctx.fillStyle = 'rgba(196,151,90,.75)';
         ctx.fill();
         p.x += p.vx; p.y += p.vy;
         if(p.x < 0) p.x = W; if(p.x > W) p.x = 0;
