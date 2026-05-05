@@ -157,7 +157,7 @@ nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 1px 0 var(--rule)}
 .srv-track{display:flex;gap:20px;transition:transform .62s cubic-bezier(.25,.46,.45,.94);will-change:transform}
 .srv-slide{min-width:calc(33.333% - 14px);flex-shrink:0}
 @media(max-width:900px){.srv-slide{min-width:calc(50% - 10px)}}
-.srv-slide{flex-shrink:0;min-width:180px}
+.srv-slide{flex-shrink:0;width:300px}
 .srv-slide .card{width:100%;overflow:hidden}
 .srv-slide .card-img{height:360px;overflow:hidden}
 @media(max-width:580px){.srv-slide{min-width:100%}}
@@ -1602,29 +1602,6 @@ function toggleGallery(el){
 })();
 
 
-// SIZE srv-slide cards to image natural aspect ratio
-(function(){
-  function fixSrvCards(){
-    document.querySelectorAll('#srvTrack .srv-slide').forEach(function(slide){
-      var img     = slide.querySelector('.card-img img');
-      var cardImg = slide.querySelector('.card-img');
-      if(!img || !cardImg) return;
-      function apply(){
-        if(!img.naturalWidth || !img.naturalHeight) return;
-        var w = Math.round(360 * img.naturalWidth / img.naturalHeight);
-        w = Math.max(w, 180);
-        slide.style.width   = w + 'px';
-        cardImg.style.width = w + 'px';
-      }
-      if(img.complete && img.naturalWidth) apply();
-      else img.addEventListener('load', apply);
-    });
-  }
-  // window.load ensures naturalWidth is set even for large base64 images
-  window.addEventListener('load', fixSrvCards);
-  if(document.readyState === 'complete') fixSrvCards();
-  else document.addEventListener('DOMContentLoaded', fixSrvCards);
-})();
 </script>
 </body>
 </html>
