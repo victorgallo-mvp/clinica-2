@@ -1221,3 +1221,288 @@ p{color:rgba(184,200,216,.85)}
             </div>
           </div>
         </div>
+
+<script>
+function go(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.getElementById('n-'+name).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleCard(card){
+  const exp=card.querySelector('.card-expand');
+  const btn=card.querySelector('.saiba-btn');
+  const open=exp.classList.contains('open');
+  document.querySelectorAll('.card-expand.open').forEach(e=>{
+    e.style.maxHeight='0';e.classList.remove('open');
+    const b=e.closest('.card').querySelector('.saiba-btn');
+    if(b){b.classList.remove('open');b.querySelector('span:first-child').textContent='Saiba mais'}
+  });
+  if(!open){
+    exp.classList.add('open');exp.style.maxHeight=exp.scrollHeight+'px';
+    btn.classList.add('open');btn.querySelector('span:first-child').textContent='Fechar';
+  }
+}
+function toggleTrat(card){
+  const exp=card.querySelector('.trat-expand');
+  const btn=card.querySelector('.saiba-btn');
+  const open=exp.classList.contains('open');
+  document.querySelectorAll('.trat-expand.open').forEach(e=>{
+    e.style.maxHeight='0';e.classList.remove('open');
+    const b=e.closest('.trat-card').querySelector('.saiba-btn');
+    if(b){b.classList.remove('open');b.querySelector('span:first-child').textContent='Ver detalhes'}
+  });
+  if(!open){
+    exp.classList.add('open');exp.style.maxHeight=exp.scrollHeight+'px';
+    btn.classList.add('open');btn.querySelector('span:first-child').textContent='Fechar';
+  }
+}
+function filtrar(cat,btn){
+  document.querySelectorAll('.filt').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.trat-card').forEach(c=>{
+    c.style.display=(cat==='todos'||c.dataset.cat===cat)?'block':'none';
+  });
+}
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20);
+});
+
+
+function toggleEq(card){
+  const exp = card.querySelector('.eq-expand');
+  const btn = card.querySelector('.eq-saiba-btn');
+  const open = exp.classList.contains('open');
+  // close all
+  document.querySelectorAll('.eq-expand.open').forEach(e=>{
+    e.style.maxHeight='0'; e.classList.remove('open');
+    const b = e.closest('.eq-expandable').querySelector('.eq-saiba-btn');
+    if(b){b.classList.remove('open'); b.querySelector('span:first-child').textContent='Saiba mais'}
+  });
+  if(!open){
+    exp.classList.add('open'); exp.style.maxHeight = exp.scrollHeight+'px';
+    btn.classList.add('open'); btn.querySelector('span:first-child').textContent='Fechar';
+  }
+}
+function toggleGallery(el){
+  const exp = el.querySelector('.gal-expand, .gal-side-expand');
+  const btn = el.querySelector('.gal-saiba-btn');
+  if(!exp) return;
+  const open = exp.classList.contains('open');
+  document.querySelectorAll('.gal-expand.open, .gal-side-expand.open').forEach(e=>{
+    e.classList.remove('open');
+    const b = e.closest('.gallery-clickable').querySelector('.gal-saiba-btn');
+    if(b){b.classList.remove('open'); b.querySelector('span:first-child').textContent='Saiba mais'}
+  });
+  if(!open){
+    exp.classList.add('open');
+    if(btn){btn.classList.add('open'); btn.querySelector('span:first-child').textContent='Fechar'}
+  }
+}
+
+
+  function mobOpen(){
+    document.getElementById('mobOv').classList.add('on');
+    document.getElementById('mobPn').classList.add('on');
+    document.body.style.overflow='hidden';
+  }
+  function mobClose(){
+    document.getElementById('mobOv').classList.remove('on');
+    document.getElementById('mobPn').classList.remove('on');
+    document.body.style.overflow='';
+  }
+  // Sync aba ativa no drawer
+  var _goOrig = go;
+  go = function(name){
+    _goOrig(name);
+    ['home','clinica','tratamentos'].forEach(function(p){
+      var el=document.getElementById('mb-'+p);
+      if(el) el.classList.toggle('mob-active', p===name);
+    });
+  };
+// ── PARTICLES ENGINE ──────────────────────────────────────────
+(function(){
+  function initCanvas(canvas){
+    var ctx = canvas.getContext('2d');
+    var W, H, particles, RAF;
+    var MAX_DIST = 130;
+    var N = 0;
+
+    function resize(){
+      var rect = canvas.parentElement.getBoundingClientRect();
+      W = canvas.width  = rect.width  || window.innerWidth;
+      H = canvas.height = rect.height || window.innerHeight;
+      N = Math.floor((W * H) / 14000);
+      N = Math.min(Math.max(N, 28), 90);
+      build();
+    }
+
+    function build(){
+      particles = [];
+      for(var i = 0; i < N; i++){
+        particles.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          vx: (Math.random() - .5) * .35,
+          vy: (Math.random() - .5) * .35,
+          r: Math.random() * 1.6 + .6
+        });
+      }
+    }
+
+    function draw(){
+      ctx.clearRect(0, 0, W, H);
+      for(var i = 0; i < N; i++){
+        var a = particles[i];
+        for(var j = i+1; j < N; j++){
+          var b = particles[j];
+          var dx = a.x - b.x, dy = a.y - b.y;
+          var d = Math.sqrt(dx*dx + dy*dy);
+          if(d < MAX_DIST){
+            var alpha = (1 - d/MAX_DIST) * .32;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = 'rgba(196,151,90,' + alpha + ')';
+            ctx.lineWidth = .6;
+            ctx.stroke();
+          }
+        }
+      }
+      for(var i = 0; i < N; i++){
+        var p = particles[i];
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(196,151,90,.75)';
+        ctx.fill();
+        p.x += p.vx; p.y += p.vy;
+        if(p.x < 0) p.x = W; if(p.x > W) p.x = 0;
+        if(p.y < 0) p.y = H; if(p.y > H) p.y = 0;
+      }
+      RAF = requestAnimationFrame(draw);
+    }
+
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ if(!RAF){ resize(); draw(); } }
+        else { cancelAnimationFrame(RAF); RAF = null; }
+      });
+    }, {threshold: 0.01});
+    observer.observe(canvas.parentElement);
+    window.addEventListener('resize', resize);
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('canvas[data-particles]').forEach(initCanvas);
+  });
+})();
+
+// SCROLL REVEAL + NUMBER COUNTER
+(function(){
+  // --- reveal observer ---
+  var revObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('vi'); revObs.unobserve(e.target); }
+    });
+  }, {threshold: 0.12});
+
+  // Carousel destaques (whole block)
+  var dc = document.getElementById('destaquesCarousel');
+  if(dc){ dc.classList.add('rv'); revObs.observe(dc); }
+
+  var ic = document.getElementById('instGrid');
+  if(ic){ ic.classList.add('rv'); revObs.observe(ic); }
+
+  var sc = document.getElementById('srvCarousel');
+  if(sc){ sc.classList.add('rv'); revObs.observe(sc); }
+
+  // Depoimentos cards — staggered
+  document.querySelectorAll('.dep-card').forEach(function(el, i){
+    el.classList.add('rv');
+    el.style.transitionDelay = (i % 4 * 0.12) + 's';
+    revObs.observe(el);
+  });
+
+  // Num items — staggered
+  document.querySelectorAll('.num-item').forEach(function(el, i){
+    el.classList.add('rv');
+    el.style.transitionDelay = (i * 0.12) + 's';
+    revObs.observe(el);
+  });
+
+  // --- number counter ---
+  var numObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      e.target.querySelectorAll('em[data-n]').forEach(function(em){
+        var target = +em.dataset.n;
+        var dur = 1600;
+        var t0 = performance.now();
+        (function tick(now){
+          var p = Math.min((now - t0) / dur, 1);
+          var ease = 1 - Math.pow(1 - p, 4); // easeOutQuart
+          em.textContent = Math.round(ease * target);
+          if(p < 1) requestAnimationFrame(tick);
+        })(t0);
+      });
+      numObs.unobserve(e.target);
+    });
+  }, {threshold: 0.3});
+
+  var ns = document.querySelector('.numeros');
+  if(ns) numObs.observe(ns);
+})();
+
+
+// CAROUSEL — serviços
+(function(){
+  var track = document.getElementById('srvTrack');
+  if(!track) return;
+  var dots = document.querySelectorAll('.srv-dots .cdot');
+  var total = track.querySelectorAll('.srv-slide').length;
+  var current = 0;
+  var timer;
+
+  function perView(){ return window.innerWidth > 900 ? 3 : window.innerWidth > 580 ? 2 : 1; }
+  function maxIdx(){ return Math.max(0, total - perView()); }
+  function slideStep(){
+    var s = track.querySelector('.srv-slide');
+    return s ? s.offsetWidth + 20 : 0;
+  }
+  function go(n){
+    var mx = maxIdx();
+    current = n < 0 ? mx : n > mx ? 0 : n;
+    var slides = track.querySelectorAll('.srv-slide');
+    var offset = 0;
+    for(var i = 0; i < current; i++){
+      if(slides[i]) offset += slides[i].offsetWidth + 20;
+    }
+    track.style.transform = 'translateX(-' + offset + 'px)';
+    dots.forEach(function(d,i){
+      d.style.display = i <= mx ? '' : 'none';
+      d.classList.toggle('active', i === current);
+    });
+  }
+  function stop(){ /* no-op: auto-scroll removed */ }
+
+  window.addEventListener('resize', function(){ go(0); });
+
+  var tx0 = 0;
+  track.addEventListener('touchstart', function(e){ tx0 = e.touches[0].clientX; },{passive:true});
+  track.addEventListener('touchend', function(e){
+    var dx = e.changedTouches[0].clientX - tx0;
+    if(Math.abs(dx) > 40){ go(current + (dx < 0 ? 1 : -1)); }
+  },{passive:true});
+
+  window.srvNext = function(){ go(current + 1); };
+  window.srvPrev = function(){ go(current - 1); };
+  window.srvGo   = function(n){ go(n); };
+
+  go(0);
+})();
+
+
+</script>
+</body>
+</html>
