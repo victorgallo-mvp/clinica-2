@@ -566,6 +566,12 @@ p{color:rgba(184,200,216,.85)}
 .inst-gi .gallery-main,.inst-gi .gallery-item,.inst-gi .gallery-tech-main{height:100%!important;border-radius:0!important}
 @media(max-width:900px){.inst-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:580px){.inst-grid{grid-template-columns:1fr}.inst-gi.span2{grid-column:span 1}}
+
+/* TYPEWRITER SECTION */
+.typewriter-wrap{position:relative;z-index:2;max-width:860px;margin:0 auto;padding:60px 5%;text-align:center}
+.typewriter-text{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:400;color:#fff;line-height:1.55;letter-spacing:.01em;display:inline}
+.typewriter-cursor{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,3vw,2.2rem);color:var(--gold);animation:blink .75s step-end infinite;display:inline}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 /* CAROUSEL instalações */
 .inst-carousel{max-width:1180px;margin:0 auto;position:relative}
 .inst-overflow{overflow:hidden}
@@ -652,13 +658,11 @@ p{color:rgba(184,200,216,.85)}
     </div>
   </section>
 
-  <section class="numeros" aria-label="Nossos números">
+  <section class="numeros" aria-label="Proposta de valor">
     <canvas class="particles-canvas" data-particles></canvas>
-    <div class="numeros-inner">
-      <div class="num-item"><strong><em data-n="6">6</em></strong><p>Cirurgiões-dentistas especializados</p></div>
-      <div class="num-item"><strong><em data-n="8">8</em></strong><p>Todas as especialidades em um só lugar</p></div>
-      <div class="num-item"><strong><em data-n="100">100</em>%</strong><p>Satisfação de atendimento</p></div>
-      <div class="num-item"><strong><em data-n="1">1</em></strong><sup style="font-size:16px;vertical-align:super">ª</sup><p>Clínica voltada para o digital em Oliveira</p></div>
+    <div class="typewriter-wrap">
+      <p class="typewriter-text" id="typewriterText"></p>
+      <span class="typewriter-cursor" id="typewriterCursor">|</span>
     </div>
   </section>
 
@@ -1636,6 +1640,30 @@ function toggleGallery(el){
 })();
 
 
+
+// TYPEWRITER
+(function(){
+  var text = 'Odontologia digital completa. Do diagnóstico ao tratamento, todas as especialidades reunidas em um só lugar — em Oliveira, MG.';
+  var el = document.getElementById('typewriterText');
+  var cursor = document.getElementById('typewriterCursor');
+  if(!el) return;
+  var i = 0, started = false;
+  function type(){
+    if(i < text.length){
+      el.textContent += text[i++];
+      setTimeout(type, i === 1 ? 0 : 38 + Math.random()*22);
+    } else {
+      cursor.style.display = 'none';
+    }
+  }
+  var obs = new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting && !started){
+      started = true;
+      setTimeout(type, 400);
+    }
+  }, {threshold: 0.4});
+  obs.observe(el.parentElement);
+})();
 </script>
 </body>
 </html>
