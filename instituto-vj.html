@@ -42,7 +42,8 @@ nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 1px 0 var(--rule)}
 .logo-wrap{display:flex;align-items:center;gap:10px;cursor:pointer}
 .logo-icon{width:36px;height:36px;border-radius:8px;background:var(--teal);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:16px;color:#fff;font-weight:600;letter-spacing:.1em}
 .logo-text{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--ink);letter-spacing:.02em}
-.logo-img{height:48px;width:auto;display:block}
+.logo-img{height:48px;width:auto;display:block;filter:invert(1)}
+nav.scrolled .logo-wrap .logo-img{filter:none}
 .mob-head-logo .logo-img{height:40px;filter:invert(1)}
 .footer-brand .logo-img{filter:invert(1)}
 .nav-links{display:flex;align-items:center;gap:4px}
@@ -246,7 +247,7 @@ nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 1px 0 var(--rule)}
 .trat-img{height:220px;overflow:hidden;position:relative}
 .trat-img img{transition:transform .5s}
 .trat-card:hover .trat-img img{transform:scale(1.05)}
-.trat-cat{position:absolute;top:14px;left:14px;background:rgba(13,17,23,.6);color:#fff;font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;backdrop-filter:blur(6px)}
+.trat-cat{display:none;position:absolute;top:14px;left:14px;background:rgba(13,17,23,.6);color:#fff;font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;backdrop-filter:blur(6px)}
 .trat-body{padding:24px}
 .trat-body h3{font-size:1.2rem;margin-bottom:8px}
 .trat-body>p{font-size:13px;margin-bottom:0}
@@ -1015,7 +1016,7 @@ p{color:rgba(184,200,216,.85)}
             <div class="eq-head">
               <div>
                 <h3>Dr. Vitor Gussen Bastos</h3>
-                <span class="eq-esp">Ortodontia | Sócio Fundador</span>
+                <span class="eq-esp">Ortodontista | Sócio Fundador</span>
                 <span class="eq-cro">CRO-MG 62322</span>
               </div>
               <button class="eq-saiba-btn"><span>Saiba mais</span><span class="eq-arr">›</span></button>
