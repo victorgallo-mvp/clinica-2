@@ -295,6 +295,13 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:72px 5% 36px}
   .hero-stats{display:none}
   .nav-links button:not(.nav-cta){display:none}
   .footer-inner{grid-template-columns:1fr}
+  /* Hero mobile fixes */
+  .hero-overlay{background:linear-gradient(to bottom,rgba(13,17,23,.75) 0%,rgba(13,17,23,.85) 60%,rgba(13,17,23,.6))}
+  .hero-content{text-align:center;padding:100px 6% 60px}
+  .hero h1{max-width:100%}
+  .hero-sub{max-width:100%;margin-left:auto;margin-right:auto}
+  .hero-btns{justify-content:center}
+  .hero-tag-wrap{justify-content:center;display:flex}
 }
 
 /* GALERIA */
@@ -594,6 +601,7 @@ p{color:rgba(184,200,216,.85)}
 
 
 @media(max-width:768px){
+  .hero-bg{background-position:center top}
   .hero::before{
     content:'';
     position:absolute;
